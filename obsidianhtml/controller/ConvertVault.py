@@ -52,6 +52,7 @@ def ConvertVault(config_yaml_location=""):
     # Convert
     # ---------------------------------------------------------
     convert_obsidian_notes_to_markdown(pb)
+    remove_block_identifiers(pb)
     convert_markdown_to_html(pb)
     compile_rss_feed(pb)
     export_user_files(pb)
@@ -391,6 +392,28 @@ def convert_markdown_to_html(pb):
 
     print("< COMPILING HTML FROM MARKDOWN CODE: Done")
 
+
+def remove_block_identifiers(pb):
+    if not pb.gc("toggles/features/remove_identifiers/enabled"):
+        return
+    
+    print("> REMOVING BLOCK IDENTIFIERS")
+    
+    rel_entry_path_str = pb.paths["rel_md_entrypoint_path"].as_posix()
+    if pb.gc("toggles/force_filename_to_lowercase", cached=True):
+        rel_entry_path_str = rel_entry_path_str.lower()
+ 
+    for k, v in pb.index.files.items():
+        # page = v.read()
+        md_path = v.path["markdown"]["file_absolute_path"]
+        if md_path.exists():
+            page = None
+            with md_path.open() as fp:
+                page = fp.read()
+                page = re.sub(r" \^[\w-]+\s*$", "",page,flags=re.M) 
+            with md_path.open('w') as fp:
+                fp.write(page)
+    print("< REMOVING BLOCK IDENTIFIERS: Done")
 
 def compile_rss_feed(pb):
     if not pb.gc("toggles/features/rss/enabled"):
