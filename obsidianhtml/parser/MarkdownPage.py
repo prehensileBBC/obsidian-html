@@ -518,6 +518,10 @@ class MarkdownPage:
             # add link to frontmatter yaml so that we can add it to the graphview
             if self.pb.gc("toggles/features/graph/show_inclusions_in_graph"):
                 self.AddInclusionLink(result["rtr_path_str"])
+        
+        # -- [11] Remove block identifiers
+        self.page = re.sub(r"\^\S+", "", self.page) 
+
         # -- [1] Restore codeblocks/-lines
         self.RestoreCodeSections()
 
