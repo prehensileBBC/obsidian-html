@@ -102,8 +102,17 @@ class NetworkTree:
         if self.pb.verbose:
             print("Link added")
 
+    def CalculateNodeValues(self):
+        for this_node in self.tree["nodes"]:
+            val = 0
+            for link in self.tree["links"]:
+                if link["target"] == this_node:
+                    val += 1
+            this_node["val"] = val
+
     def OutputJson(self):
         """the graph.json"""
+        self.CalculateNodeValues()
         tree = StringifyDateRecurse(self.tree.copy())
         return json.dumps(tree)
 
