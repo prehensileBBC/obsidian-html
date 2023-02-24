@@ -225,7 +225,7 @@ toggles:
       enabled: True
       hide_on_h1: True          # don't add embedded title if the note starts with an h1
     remove_identifiers:
-      enabled: True             # remove identifiers from inlcuded blocks after converting notes to markdoen
+      enabled: True             # remove identifiers from inlcuded blocks after converting notes to markdown
 
     search:
       enabled: True
