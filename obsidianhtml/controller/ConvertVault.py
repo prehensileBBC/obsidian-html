@@ -410,10 +410,12 @@ def remove_block_identifiers(pb):
             page = None
             with md_path.open() as fp:
                 page = fp.read()
-                page = re.sub(r" \^[\w-]+\s*$", "",page,flags=re.M) 
+                page = re.sub(r" \^[\w-]+(\s*)$", r"\g<1>",page,flags=re.M) 
             with md_path.open('w') as fp:
                 fp.write(page)
+    
     print("< REMOVING BLOCK IDENTIFIERS: Done")
+
 
 def compile_rss_feed(pb):
     if not pb.gc("toggles/features/rss/enabled"):
