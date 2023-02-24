@@ -103,10 +103,11 @@ class NetworkTree:
             print("Link added")
 
     def CalculateNodeValues(self):
+        print( "CalculateNodeValues" )
         for this_node in self.tree["nodes"]:
             val = 0
             for link in self.tree["links"]:
-                if link["target"] == this_node:
+                if link["target"] == this_node["id"]:
                     val += 1
             this_node["val"] = val
 
