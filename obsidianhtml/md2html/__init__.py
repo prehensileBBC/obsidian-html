@@ -333,16 +333,16 @@ def convert_markdown_page_to_html_and_export(fo: "FileObject", pb, backlink_node
 
     # [17] Add in graph code to template (via {content})
     # This shows the "Show Graph" button, and adds the js code to handle showing the graph
-    if pb.gc("toggles/features/graph/enabled", cached=True):
-        graph_template = (
-            pb.graph_template.replace("{id}", simpleHash(html_body))
-            .replace("{pinnedNode}", node["id"])
-            .replace("{pinnedNodeGraph}", str(node["nid"]))
-            .replace("{html_url_prefix}", html_url_prefix)
-            .replace("{graph_coalesce_force}", pb.gc("toggles/features/graph/coalesce_force", cached=True))
-            .replace("{graph_classes}", "")
-        )
-        html_body += f"\n{graph_template}\n"
+    # if pb.gc("toggles/features/graph/enabled", cached=True):
+    #     graph_template = (
+    #         pb.graph_template.replace("{id}", simpleHash(html_body))
+    #         .replace("{pinnedNode}", node["id"])
+    #         .replace("{pinnedNodeGraph}", str(node["nid"]))
+    #         .replace("{html_url_prefix}", html_url_prefix)
+    #         .replace("{graph_coalesce_force}", pb.gc("toggles/features/graph/coalesce_force", cached=True))
+    #         .replace("{graph_classes}", "")
+    #     )
+    #     html_body += f"\n{graph_template}\n"
 
     # Add node_id to page so that we can fetch this in the second-pass
     html_body += "{_obsidian_html_node_id_pattern_:" + node["id"] + "}\n"

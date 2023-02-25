@@ -1,7 +1,7 @@
 from functools import cache
 from bs4 import BeautifulSoup
 
-from ..lib import OpenIncludedFile
+from ..lib import OpenIncludedFile, simpleHash
 
 
 def get_side_pane_html(pb, pane_id, node):
@@ -35,6 +35,31 @@ def get_side_pane_content(pb, pane_id, node):
 
     if content_selector == "html_page":
         return get_html_page_content(pb, pane_id)
+
+    if content_selector == "graph":
+         # [17] Add in graph code to template (via {content})
+        # This shows the "Show Graph" button, and adds the js code to handle showing the graph
+        html_url_prefix = pb.gc("html_url_prefix")
+        pinned_node = node["id"]
+        graph_id = simpleHash(pane_id)
+        graph_template = (
+            pb.graph_template.replace("{id}", graph_id)
+            .replace("{pinnedNode}", pinned_node)
+            .replace("{pinnedNodeGraph}", str(node["nid"]))
+            .replace("{html_url_prefix}", html_url_prefix)
+            .replace("{graph_coalesce_force}", pb.gc("toggles/features/graph/coalesce_force", cached=True))
+            .replace("{graph_classes}", "")
+        )
+        graph_template += """
+        <script>
+            let fn = function(){document.getElementsByClassName("graph_show_button")[0].onclick();};
+            if( document.readyState == "complete" ){
+                fn();
+            } else {
+                window.addEventListener('load', fn);
+            }
+        </script>"""
+        return graph_template
 
     return ""
 
