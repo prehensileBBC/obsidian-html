@@ -34,7 +34,7 @@ var default_actions = {
 
 var default_colors = {
     'bg': 'var(--graph-bg)',    // only color where var value is allowed
-    'node_inactive': '#909099',
+    'node_inactive': '#90909988',
     'node_active': '#7f6df2',
     'node_semiactive': '#b6abff',
     'node_active_border': '#dcddde',

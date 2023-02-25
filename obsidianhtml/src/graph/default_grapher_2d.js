@@ -36,6 +36,7 @@ function initGraph(args) {
             .height(args.height)
             .backgroundColor(g.colors.bg)
             .nodeLabel('name')
+            .nodeRelSize(2)
             .d3Force("charge", d3.forceManyBody().strength(args.coalesce_force))
             .nodeColor((node) => {return g.colors.node_inactive})
             .nodeCanvasObjectMode(() => 'after')
@@ -90,14 +91,7 @@ function initGraph(args) {
                 }
                 return g.colors.link_inactive
             })
-            .linkDirectionalParticles("value")
-            .linkDirectionalParticleSpeed(0.010)
-            .linkDirectionalParticleWidth(link => {
-                if (link.source.id == g.current_node_id || link.target.id == g.current_node_id){
-                    return 4.0
-                }
-                return 0
-            })
+            .linkDirectionalParticles(0)
             // [425] Add included references as links in graph view
             .linkLineDash(link => {
                 if (link.type == 'inclusion'){

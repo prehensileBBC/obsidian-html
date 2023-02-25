@@ -103,7 +103,8 @@ class NetworkTree:
             print("Link added")
 
     def CalculateNodeValues(self):
-        print( "CalculateNodeValues" )
+        if self.pb.verbose:
+            print( "CalculateNodeValues" )
         for this_node in self.tree["nodes"]:
             val = 0
             for link in self.tree["links"]:
@@ -113,7 +114,8 @@ class NetworkTree:
 
     def OutputJson(self):
         """the graph.json"""
-        self.CalculateNodeValues()
+        if self.pb.gc("toggles/features/graph/size_nodes", cached=True):
+            self.CalculateNodeValues()
         tree = StringifyDateRecurse(self.tree.copy())
         return json.dumps(tree)
 

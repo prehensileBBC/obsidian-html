@@ -270,6 +270,7 @@ toggles:
       styling:
         show_icon: True
       coalesce_force: '-30'
+      size_nodes: True                # sets the 'val' attribute of nodes to their number of links, which force-graph uses to set sizes
       show_inclusions_in_graph: True
 
     rss:
@@ -363,7 +364,7 @@ toggles:
       right_pane:
         enabled: True
         width: 16rem
-        contents: toc       # <toc, tag_tree, dir_tree, html_page> relevant features should be enabled and configured see docs
+        contents: toc       # <toc, tag_tree, dir_tree, html_page, graph> relevant features should be enabled and configured see docs
         content_args:       # used for html_page
           rel_path: 'index.html'
           div_selector: '.content'
